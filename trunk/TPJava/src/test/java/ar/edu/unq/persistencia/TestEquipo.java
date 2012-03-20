@@ -34,7 +34,7 @@ public class TestEquipo extends TestCase {
 
     @Override
     public void setUp() {
-        this.equipo.setTecnico(tecnico);
+        this.equipo.setTecnico(this.tecnico);
         this.jugador1.addHabilidad(new Habilidad(Posicion.Arquero, 8));
         this.jugador1.addHabilidad(new Habilidad(Posicion.Enganche, 5));
         this.jugador2.addHabilidad(new Habilidad(Posicion.Lateral, 4));
@@ -56,16 +56,16 @@ public class TestEquipo extends TestCase {
         this.jugador10.addHabilidad(new Habilidad(Posicion.Central, 0));
         this.jugador10.addHabilidad(new Habilidad(Posicion.VolanteDefensivo, 0));
 
-        this.equipo.agregarJugador(jugador1);
-        this.equipo.agregarJugador(jugador2);
-        this.equipo.agregarJugador(jugador3);
-        this.equipo.agregarJugador(jugador4);
-        this.equipo.agregarJugador(jugador5);
-        this.equipo.agregarJugador(jugador6);
-        this.equipo.agregarJugador(jugador7);
-        this.equipo.agregarJugador(jugador8);
-        this.equipo.agregarJugador(jugador9);
-        this.equipo.agregarJugador(jugador10);
+        this.equipo.agregarJugador(this.jugador1);
+        this.equipo.agregarJugador(this.jugador2);
+        this.equipo.agregarJugador(this.jugador3);
+        this.equipo.agregarJugador(this.jugador4);
+        this.equipo.agregarJugador(this.jugador5);
+        this.equipo.agregarJugador(this.jugador6);
+        this.equipo.agregarJugador(this.jugador7);
+        this.equipo.agregarJugador(this.jugador8);
+        this.equipo.agregarJugador(this.jugador9);
+        this.equipo.agregarJugador(this.jugador10);
         this.equipo.addPosicion(Posicion.Arquero);
         this.equipo.addPosicion(Posicion.Delantero);
         this.equipo.addPosicion(Posicion.Lateral);
