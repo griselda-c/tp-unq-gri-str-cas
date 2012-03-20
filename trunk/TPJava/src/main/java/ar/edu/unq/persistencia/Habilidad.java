@@ -12,7 +12,7 @@ public class Habilidad {
     }
 
     public int getValor(Posicion posicion) {
-        if (this.posicion == posicion) {
+        if (this.posicion.equals(posicion)) {
             return this.valor;
         } else {
             return 0;
