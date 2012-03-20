@@ -7,13 +7,16 @@ public class FormacionStrategy {
 
     public Formacion armarFormacion(Equipo unEquipo) {
         List<Jugador> suplentes = new LinkedList<Jugador>();
+
+        // guarda en suplentes todos los jugadores
         suplentes.addAll(unEquipo.getJugadores());
+
         List<Posicion> posicionesPendientes = new LinkedList<Posicion>();
 
         Formacion formacion = new Formacion();
         formacion.setSuplentes(suplentes);
 
-        for (Posicion i : formacion.getPosiciones()) {
+        for (Posicion i : unEquipo.getPosiciones()) {
             int maximo = 0;
             Jugador masApto = null;
             for (Jugador j : suplentes) {
@@ -24,8 +27,9 @@ public class FormacionStrategy {
             }
 
             if (maximo > 0) {
-                suplentes.remove(masApto);
+
                 formacion.addTitular(new Titular(masApto, i));
+                suplentes.remove(masApto);
             } else {
                 posicionesPendientes.add(i);
             }
