@@ -12,8 +12,6 @@ public class TestEquipo extends TestCase {
 
     private Tecnico tecnico = new Tecnico();
 
-    private FormacionStrategy strFor = new FormacionStrategy();
-
     private Jugador jugador1 = new Jugador();
 
     private Jugador jugador2 = new Jugador();

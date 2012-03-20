@@ -5,36 +5,24 @@ import java.util.List;
 
 public class Formacion {
 
-    public Equipo equipo;
-
     private List<Titular> titulares = new LinkedList<Titular>();
+
+    private List<Jugador> suplentes = new LinkedList<Jugador>();
 
     public List<Titular> getTitulares() {
         return titulares;
     }
 
-    private List<Jugador> suplentes;
-
     public List<Jugador> getSuplentes() {
         return suplentes;
     }
 
-    private List<Posicion> posiciones = new LinkedList<Posicion>();;
-
-    public void addTitular(final Titular unTitular) {
+    public void addTitular(Titular unTitular) {
         this.titulares.add(unTitular);
     }
 
-    public void addPosicion(final Posicion unPosicion) {
-        this.posiciones.add(unPosicion);
-    }
-
-    public void setSuplentes(final List<Jugador> suplentes) {
+    public void setSuplentes(List<Jugador> suplentes) {
         this.suplentes = suplentes;
-    }
-
-    public List<Posicion> getPosiciones() {
-        return this.posiciones;
     }
 
 }

@@ -6,7 +6,7 @@ import java.util.List;
 public class Jugador {
     private List<Habilidad> habilidades = new LinkedList<Habilidad>();
 
-    public int getValorHabilidad(final Posicion posicion) {
+    public int getValorHabilidad(Posicion posicion) {
         int valor = 0;
         for (Habilidad i : this.habilidades) {
             if (i.getValor(posicion) > valor) {
