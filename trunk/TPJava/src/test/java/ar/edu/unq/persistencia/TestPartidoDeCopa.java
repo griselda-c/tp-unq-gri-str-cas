@@ -78,7 +78,9 @@ public class TestPartidoDeCopa extends TestCase {
         partido1.setGolesEquipos(2, 2);
         partido2.setGolesEquipos(3, 5);
         superPartido.setGolesPenalesAcertadosEquipos(3, 2);
-        Assert.assertEquals(superPartido.getGanador(), equipo1);
+        Assert.assertNull(partido1.getGanador());
+        Assert.assertEquals(partido2.getGanador(), equipo2);
+        Assert.assertFalse((partido1.getIntGanador() == (partido2.getIntGanador())));
+        Assert.assertEquals(superPartido.getGanador(), equipo2);
     }
-
 }

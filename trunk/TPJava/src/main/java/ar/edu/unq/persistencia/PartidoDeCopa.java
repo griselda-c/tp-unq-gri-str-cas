@@ -66,7 +66,7 @@ public class PartidoDeCopa extends Partido {
     public Equipo getGanador() {
         if (empate()) {
             return irAPenales();
-        } else if (partidoSimple1.getGanador().equals(partidoSimple2.getGanador())) {
+        } else if (partidoSimple1.getIntGanador() == (partidoSimple2.getIntGanador())) {
             return partidoSimple1.getGanador();
         } else if (partidoSimple1.getIntGanador() == 0) {
             return partidoSimple2.getGanador();
