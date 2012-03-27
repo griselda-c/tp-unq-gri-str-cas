@@ -5,23 +5,31 @@ package ar.edu.unq.persistencia;
  */
 abstract class Partido {
 
-    private Equipo Equipo1;
+    protected Equipo equipo1;
 
-    private int golesEquipo1;
+    protected int golesEquipo1;
 
-    public void setEquipo1(final Equipo e1, final int g1) {
-        this.Equipo1 = e1;
+    public Equipo getEquipo1() {
+        return equipo1;
+    }
+
+    public Equipo getEquipo2() {
+        return equipo2;
+    }
+
+    protected Equipo equipo2;
+
+    protected int golesEquipo2;
+
+    public void setEquipo1(Equipo e1, int g1) {
+        this.equipo1 = e1;
         this.golesEquipo1 = g1;
     }
 
-    public void setEquipo2(final Equipo e2, final int g2) {
-        this.Equipo2 = e2;
+    public void setEquipo2(Equipo e2, int g2) {
+        this.equipo2 = e2;
         this.golesEquipo2 = g2;
     }
-
-    private Equipo Equipo2;
-
-    private int golesEquipo2;
 
     abstract Equipo getGanador();
 
