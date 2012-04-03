@@ -15,6 +15,7 @@
         <property name="show_sql">true</property>
 
         <mapping resource="ar/edu/unq/persistencia/Jugador.hbm.xml"></mapping>
+        <mapping resource="ar/edu/unq/persistencia/PartidoSimple.hbm.xml"></mapping>
 		
     </session-factory>
 </hibernate-configuration>
