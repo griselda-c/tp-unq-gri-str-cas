@@ -2,6 +2,24 @@ package ar.edu.unq.persistencia;
 
 public class PartidoSimple extends Partido {
 
+    private Integer id;
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public void setGolesEquipo1(int golesEquipo1) {
+        this.golesEquipo1 = golesEquipo1;
+    }
+
+    public void setGolesEquipo2(int golesEquipo2) {
+        this.golesEquipo2 = golesEquipo2;
+    }
+
     int golesEquipo1 = 0;
 
     int golesEquipo2 = 0;
