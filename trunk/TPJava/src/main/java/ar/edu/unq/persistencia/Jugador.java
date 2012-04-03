@@ -5,11 +5,29 @@ import java.util.List;
 
 public class Jugador {
 
+    private Integer id;
+
+    public Integer getId() {
+        return this.id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
+    public int getNroCamiseta() {
+        return this.nroCamiseta;
+    }
+
+    public void setNroCamiseta(int nroCamiseta) {
+        this.nroCamiseta = nroCamiseta;
+    }
+
     private String nombre;
 
     private String apellido;
 
-    private int camiseta;
+    private int nroCamiseta;
 
     public String getNombre() {
         return this.nombre;
@@ -27,19 +45,15 @@ public class Jugador {
         this.apellido = apellido;
     }
 
-    public int getCamiseta() {
-        return this.camiseta;
-    }
-
-    public void setCamiseta(final int camiseta) {
-        this.camiseta = camiseta;
-    }
-
     public Jugador(final String nombreT, final String apellidoT, final int camisetaT) {
         super();
         this.nombre = nombreT;
         this.apellido = apellidoT;
-        this.camiseta = camisetaT;
+        this.nroCamiseta = camisetaT;
+    }
+
+    public Jugador() {
+        super();
     }
 
     private List<Habilidad> habilidades = new LinkedList<Habilidad>();
