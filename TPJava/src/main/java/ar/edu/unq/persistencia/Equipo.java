@@ -5,6 +5,36 @@ import java.util.List;
 
 public class Equipo {
 
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public Tecnico getTecnico() {
+        return tecnico;
+    }
+
+    public void setPosiciones(List<Posicion> posiciones) {
+        this.posiciones = posiciones;
+    }
+
+    public void setJugadores(List<Jugador> jugadores) {
+        this.jugadores = jugadores;
+    }
+
+    public void setFormacion(Formacion formacion) {
+        this.formacion = formacion;
+    }
+
+    public Equipo() {
+        super();
+    }
+
     private Tecnico tecnico;
 
     private List<Posicion> posiciones = new LinkedList<Posicion>();
