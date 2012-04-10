@@ -1,7 +1,5 @@
 package ar.edu.unq.persistencia;
 
-import java.sql.Types;
-
 import org.hibernate.SessionFactory;
 import org.hibernate.classic.Session;
 
@@ -17,7 +15,6 @@ public class SaveHabilidadTest extends AbstractHibernateTest {
         Habilidad b = new Habilidad(Posicion.Arquero, 8);
         Habilidad c = new Habilidad(Posicion.Lateral, 4);
         Habilidad d = new Habilidad(Posicion.Delantero, 2);
-        Types Q;
         session.saveOrUpdate(a);
         session.saveOrUpdate(b);
         session.saveOrUpdate(c);
