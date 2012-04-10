@@ -17,5 +17,10 @@
         <property name="nroCamiseta" type="int">
             <column name="J_NRO" not-null="false" unique="false"/>
         </property>
+        <list name="habilidades" cascade="all">
+        	<key column = "J_JD_ID"></key>
+        	<index column ="J_INDICE"/>		
+        	<one-to-many class = "ar.edu.unq.persistencia.Habilidad"/>
+        </list>
     </class>
 </hibernate-mapping>
