@@ -77,6 +77,7 @@ public class TestEquipo extends TestCase {
         Formacion formacionTem = this.equipo.armarFormacion();
         System.out.println(formacionTem.getTitulares().size());
         System.out.println(formacionTem.getSuplentes().size());
-        Assert.assertTrue(formacionTem.getTitulares().size() == 6);
+        Assert.assertEquals(formacionTem.getTitulares().size(), 6);
+        Assert.assertEquals(formacionTem.getSuplentes().size(), 4);
     }
 }
