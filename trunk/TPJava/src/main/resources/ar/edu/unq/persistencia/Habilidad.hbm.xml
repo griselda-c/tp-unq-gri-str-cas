@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+  
+   	<typedef name="Posicion" class="org.hibernate.type.EnumType">
+       	<param name="enumClass">ar.edu.unq.persistencia.Posicion</param>
+       	<param name="type">12</param> 
+   	</typedef>
+
+    <class name="ar.edu.unq.persistencia.Habilidad" table="habilidad" >
+    	<id name="id" type="java.lang.Integer">
+            <column name="H_ID" />
+            <generator class="identity" />
+        </id>
+		<property name="valor" type="int">
+            <column name="H_VALOR" not-null="false" unique="false"/>
+        </property>
+        <property name="posicion"  type="Posicion" >
+        	<column name="H_POSICION" sql-type="varchar"></column>
+        </property>
+    </class>
+</hibernate-mapping>

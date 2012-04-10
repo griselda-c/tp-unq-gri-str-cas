@@ -6,6 +6,36 @@ public class Habilidad {
 
     private int valor;
 
+    public String getPosicionString() {
+        return posicion.toString();
+    }
+
+    public Posicion getPosicion() {
+        return posicion;
+    }
+
+    public void setPosicion(Posicion posicion) {
+        this.posicion = posicion;
+    }
+
+    public int getValor() {
+        return valor;
+    }
+
+    public void setValor(int valor) {
+        this.valor = valor;
+    }
+
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     public Habilidad(Posicion posicion, int valor) {
         this.posicion = posicion;
         this.valor = valor;
