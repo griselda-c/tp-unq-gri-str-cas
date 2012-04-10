@@ -8,7 +8,7 @@ import org.hibernate.classic.Session;
  */
 public class SaveEquipoTest extends AbstractHibernateTest {
 
-    public void testSaveJugador() throws Exception {
+    public void testSaveEquipo() throws Exception {
         SessionFactory sessionFactory = this.getSessionFactory();
         Session session = sessionFactory.openSession();
         Jugador a = new Jugador("Diego", "Maradona", 10);
