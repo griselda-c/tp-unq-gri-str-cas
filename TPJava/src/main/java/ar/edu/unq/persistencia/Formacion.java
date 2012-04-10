@@ -5,6 +5,16 @@ import java.util.List;
 
 public class Formacion {
 
+    private int id;
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+
     private List<Titular> titulares = new LinkedList<Titular>();
 
     private List<Jugador> suplentes = new LinkedList<Jugador>();

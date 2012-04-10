@@ -68,6 +68,14 @@ public class Jugador {
         return valor;
     }
 
+    public List<Habilidad> getHabilidades() {
+        return habilidades;
+    }
+
+    public void setHabilidades(List<Habilidad> habilidades) {
+        this.habilidades = habilidades;
+    }
+
     public void addHabilidad(final Habilidad habilidad) {
         this.habilidades.add(habilidad);
     }

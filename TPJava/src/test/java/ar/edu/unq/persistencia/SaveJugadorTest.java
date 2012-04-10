@@ -15,7 +15,9 @@ public class SaveJugadorTest extends AbstractHibernateTest {
     public void testSaveJugador() throws Exception {
         SessionFactory sessionFactory = this.getSessionFactory();
         Session session = sessionFactory.openSession();
-        session.saveOrUpdate(new Jugador("Diego", "Maradona", 10));
+        Jugador a = new Jugador("Diego", "Maradona", 10);
+        a.addHabilidad(new Habilidad(Posicion.Central, 10));
+        session.saveOrUpdate(a);
         session.flush();
         session.close();
     }
