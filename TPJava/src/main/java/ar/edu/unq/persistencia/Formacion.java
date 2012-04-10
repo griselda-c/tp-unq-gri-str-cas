@@ -27,6 +27,10 @@ public class Formacion {
         return suplentes;
     }
 
+    public void setTitulares(List<Titular> titulares) {
+        this.titulares = titulares;
+    }
+
     public void addTitular(Titular unTitular) {
         this.titulares.add(unTitular);
     }
