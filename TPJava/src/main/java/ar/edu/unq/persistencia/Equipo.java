@@ -35,7 +35,7 @@ public class Equipo {
         super();
     }
 
-    private Tecnico tecnico;
+    private Tecnico tecnico = new Tecnico();
 
     private List<Posicion> posiciones = new LinkedList<Posicion>();
 
