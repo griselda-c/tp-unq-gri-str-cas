@@ -20,5 +20,7 @@
         <mapping resource="ar/edu/unq/persistencia/PartidoSimple.hbm.xml"></mapping>
 	    <mapping resource="ar/edu/unq/persistencia/Habilidad.hbm.xml"></mapping>
 	    <mapping resource="ar/edu/unq/persistencia/Equipo.hbm.xml"></mapping>
+	    <mapping resource="ar/edu/unq/persistencia/Formacion.hbm.xml"></mapping>
+	    <mapping resource="ar/edu/unq/persistencia/Titular.hbm.xml"></mapping>
     </session-factory>
 </hibernate-configuration>
