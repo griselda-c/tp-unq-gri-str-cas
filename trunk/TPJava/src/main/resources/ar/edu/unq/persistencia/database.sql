@@ -29,4 +29,31 @@ CREATE TABLE  `tpequipos`.`partidos` (
   PRIMARY KEY (`J_ID`)
 ) ENGINE=MyISAM DEFAULT CHARSET=latin1
 
+CREATE TABLE  `tpequipos`.`formaciones` (
+  `J_ID` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`J_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1
+
+CREATE TABLE  `tpequipos`.`titulares` (
+  `J_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `J_JUGADOR` int(11) NOT NULL,
+  `H_POSICION` varchar(20) NOT NULL,
+  PRIMARY KEY (`J_ID`)
+) ENGINE=MyISAM DEFAULT CHARSET=latin1
+
+CREATE TABLE  `tpequipos`.`formacion_titulares` (
+  `J_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `J_EQ_ID` int(11) NOT NULL,
+  `J_INDICE` int(11) NOT NULL,
+  PRIMARY KEY (`J_ID`,`J_EQ_ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1
+
+
+CREATE TABLE  `tpequipos`.`formacion_suplentes` (
+  `J_ID` int(11) NOT NULL AUTO_INCREMENT,
+  `J_EQ_ID` int(11) NOT NULL,
+  `J_INDICE` int(11) NOT NULL,
+  PRIMARY KEY (`J_ID`,`J_EQ_ID`)
+) ENGINE=MyISAM AUTO_INCREMENT=3 DEFAULT CHARSET=latin1
+
 
