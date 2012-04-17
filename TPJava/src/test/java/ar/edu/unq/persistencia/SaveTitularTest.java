@@ -6,7 +6,7 @@ import org.hibernate.classic.Session;
 /**
  * TODO: description
  */
-public class SaveTitularTest extends AbstractHibernateTest {
+public class SaveTitularTest extends AbstractPartidoHibernate {
 
     public void testSaveTitular() throws Exception {
         SessionFactory sessionFactory = this.getSessionFactory();

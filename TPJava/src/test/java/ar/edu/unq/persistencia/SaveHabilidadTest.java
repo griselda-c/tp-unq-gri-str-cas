@@ -6,7 +6,7 @@ import org.hibernate.classic.Session;
 /**
  * TODO: description
  */
-public class SaveHabilidadTest extends AbstractHibernateTest {
+public class SaveHabilidadTest extends AbstractPartidoHibernate {
 
     public void testSaveHabilidad() throws Exception {
         SessionFactory sessionFactory = this.getSessionFactory();
@@ -20,14 +20,6 @@ public class SaveHabilidadTest extends AbstractHibernateTest {
         session.saveOrUpdate(c);
         session.saveOrUpdate(d);
         session.flush();
-
-        /*
-         * 
-         * Criteria q = session.createCriteria(Habilidad.class); q.add(Expression.eq("valor", "10")); List<Habilidad> l
-         * = q.list();
-         * 
-         * for (Habilidad jd : l) { System.out.println(jd.getPosicion()); }
-         */
 
         session.close();
     }

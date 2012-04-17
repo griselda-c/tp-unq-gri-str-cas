@@ -1,16 +1,11 @@
 package ar.edu.unq.persistencia;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
 /**
  * TODO: description
  */
-public class TestPartidoDeCopa extends TestCase {
-
-    Equipo equipo1 = new Equipo();
-
-    Equipo equipo2 = new Equipo();
+public class TestPartidoDeCopa extends AbstractPartidoTest {
 
     PartidoSimple partido1 = new PartidoSimple(equipo1, equipo2);
 

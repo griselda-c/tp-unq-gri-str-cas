@@ -1,12 +1,11 @@
 package ar.edu.unq.persistencia;
 
 import junit.framework.Assert;
-import junit.framework.TestCase;
 
 /**
  * TODO: description
  */
-public class TestHabilidad extends TestCase {
+public class TestHabilidad extends AbstractPartidoTest {
 
     /*
      * private Posicion pos = Posicion.Arquero; private int valor;

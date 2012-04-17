@@ -8,6 +8,8 @@
             <column name="J_ID" />
             <generator class="identity" />
         </id>
+        <many-to-one name="tecnico"  
+        	column="J_TECNICO" cascade="all"/>
         <list name="jugadores" cascade="all">
         	<key column = "J_EQ_ID"></key>
         	<index column ="J_INDICE"/>		

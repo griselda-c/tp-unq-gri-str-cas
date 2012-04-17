@@ -6,6 +6,38 @@ public class PartidoDeCopa extends Partido {
 
     PartidoSimple partidoSimple2;
 
+    public PartidoSimple getPartidoSimple1() {
+        return partidoSimple1;
+    }
+
+    public void setPartidoSimple1(PartidoSimple partidoSimple1) {
+        this.partidoSimple1 = partidoSimple1;
+    }
+
+    public PartidoSimple getPartidoSimple2() {
+        return partidoSimple2;
+    }
+
+    public void setPartidoSimple2(PartidoSimple partidoSimple2) {
+        this.partidoSimple2 = partidoSimple2;
+    }
+
+    public int getGolesPenalesEquipo1() {
+        return golesPenalesEquipo1;
+    }
+
+    public void setGolesPenalesEquipo1(int golesPenalesEquipo1) {
+        this.golesPenalesEquipo1 = golesPenalesEquipo1;
+    }
+
+    public int getGolesPenalesEquipo2() {
+        return golesPenalesEquipo2;
+    }
+
+    public void setGolesPenalesEquipo2(int golesPenalesEquipo2) {
+        this.golesPenalesEquipo2 = golesPenalesEquipo2;
+    }
+
     int golesPenalesEquipo1 = 0;
 
     int golesPenalesEquipo2 = 0;
