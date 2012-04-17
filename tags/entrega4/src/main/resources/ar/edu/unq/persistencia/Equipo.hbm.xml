@@ -1,0 +1,19 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="ar.edu.unq.persistencia.Equipo" table="equipos" >
+        <id name="id" type="java.lang.Integer">
+            <column name="J_ID" />
+            <generator class="identity" />
+        </id>
+        <many-to-one name="tecnico"  
+        	column="J_TECNICO" cascade="all"/>
+        <list name="jugadores" cascade="all">
+        	<key column = "J_EQ_ID"></key>
+        	<index column ="J_INDICE"/>		
+        	<one-to-many class = "ar.edu.unq.persistencia.Jugador"/>
+        </list>
+    </class>
+</hibernate-mapping>
