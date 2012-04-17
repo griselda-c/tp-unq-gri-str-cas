@@ -1,11 +1,12 @@
 package ar.edu.unq.persistencia;
 
 import junit.framework.Assert;
+import junit.framework.TestCase;
 
 /**
  * TODO: description
  */
-public class TestJugador {
+public class TestJugador extends TestCase {
 
     private Jugador jugador = new Jugador();
 

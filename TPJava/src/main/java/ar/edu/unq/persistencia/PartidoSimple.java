@@ -12,6 +12,28 @@ public class PartidoSimple extends Partido {
         this.id = id;
     }
 
+    protected Equipo equipo1;
+
+    public Equipo getEquipo1() {
+        return equipo1;
+    }
+
+    public Equipo getEquipo2() {
+        return equipo2;
+    }
+
+    protected Equipo equipo2;
+
+    public void setEquipo1(Equipo e1, int g1) {
+        this.equipo1 = e1;
+        this.golesEquipo1 = g1;
+    }
+
+    public void setEquipo2(Equipo e2, int g2) {
+        this.equipo2 = e2;
+        this.golesEquipo2 = g2;
+    }
+
     public void setGolesEquipo1(int golesEquipo1) {
         this.golesEquipo1 = golesEquipo1;
     }
