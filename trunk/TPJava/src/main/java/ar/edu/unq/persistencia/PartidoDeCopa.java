@@ -52,12 +52,10 @@ public class PartidoDeCopa extends Partido {
             return getEquipo2();
     }
 
-    @Override
     public Equipo getEquipo1() {
         return partidoSimple1.getEquipo1();
     }
 
-    @Override
     public Equipo getEquipo2() {
         return partidoSimple1.getEquipo2();
     }
