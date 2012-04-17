@@ -10,7 +10,7 @@ import org.hibernate.criterion.Expression;
 /**
  * TODO: description
  */
-public class SaveJugadorTest extends AbstractHibernateTest {
+public class SaveJugadorTest extends AbstractPartidoHibernate {
 
     public void testSaveJugador() throws Exception {
         SessionFactory sessionFactory = this.getSessionFactory();
@@ -25,8 +25,12 @@ public class SaveJugadorTest extends AbstractHibernateTest {
     public void testGetJugador() throws Exception {
         SessionFactory sessionFactory = this.getSessionFactory();
         Session session = sessionFactory.openSession();
-        Jugador a = (Jugador) session.get(Jugador.class, 1);
-        System.out.println(a.getNombre() + " - " + a.getApellido());
+        Criteria q = session.createCriteria(Jugador.class);
+        q.add(Expression.eq("nombre", "Diego"));
+        List<Jugador> l = q.list();
+        for (Jugador jd : l) {
+            System.out.println(jd.getNombre() + " - " + jd.getApellido());
+        }
         session.flush();
 
         session.close();

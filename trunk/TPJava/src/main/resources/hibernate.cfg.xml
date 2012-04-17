@@ -17,10 +17,11 @@
 
 
         <mapping resource="ar/edu/unq/persistencia/Jugador.hbm.xml"></mapping>
-        <mapping resource="ar/edu/unq/persistencia/PartidoSimple.hbm.xml"></mapping>
+        <mapping resource="ar/edu/unq/persistencia/Partido.hbm.xml"></mapping>
 	    <mapping resource="ar/edu/unq/persistencia/Habilidad.hbm.xml"></mapping>
 	    <mapping resource="ar/edu/unq/persistencia/Equipo.hbm.xml"></mapping>
 	    <mapping resource="ar/edu/unq/persistencia/Formacion.hbm.xml"></mapping>
 	    <mapping resource="ar/edu/unq/persistencia/Titular.hbm.xml"></mapping>
+	    <mapping resource="ar/edu/unq/persistencia/Tecnico.hbm.xml"></mapping>
     </session-factory>
 </hibernate-configuration>
