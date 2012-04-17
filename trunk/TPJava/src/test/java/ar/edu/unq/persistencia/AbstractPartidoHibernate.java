@@ -1,5 +1,8 @@
 package ar.edu.unq.persistencia;
 
+import org.hibernate.SessionFactory;
+import org.hibernate.classic.Session;
+
 /**
  * TODO: description
  */
@@ -155,6 +158,22 @@ public abstract class AbstractPartidoHibernate extends AbstractHibernateTest {
         this.equipo2.addPosicion(Posicion.VolanteLateral);
         this.equipo2.addPosicion(Posicion.VolanteDefensivo);
 
+    }
+
+    @Override
+    protected void tearDown() {
+        SessionFactory sessionFactory = this.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.createSQLQuery("DELETE FROM tpequipos.equipos").executeUpdate();
+        session.createSQLQuery("DELETE FROM tpequipos.formacion_suplentes").executeUpdate();
+        session.createSQLQuery("DELETE FROM tpequipos.formacion_titulares").executeUpdate();
+        session.createSQLQuery("DELETE FROM tpequipos.formaciones").executeUpdate();
+        session.createSQLQuery("DELETE FROM tpequipos.habilidad").executeUpdate();
+        session.createSQLQuery("DELETE FROM tpequipos.jugadores").executeUpdate();
+        session.createSQLQuery("DELETE FROM tpequipos.partidoscopa").executeUpdate();
+        session.createSQLQuery("DELETE FROM tpequipos.partidossimples").executeUpdate();
+        session.createSQLQuery("DELETE FROM tpequipos.tecnicos").executeUpdate();
+        session.createSQLQuery("DELETE FROM tpequipos.titulares").executeUpdate();
     }
 
 }
