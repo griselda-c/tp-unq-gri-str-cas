@@ -15,5 +15,7 @@
         	<index column ="J_INDICE"/>		
         	<one-to-many class = "ar.edu.unq.persistencia.Jugador"/>
         </list>
+        <one-to-one name="formacion" cascade="all"/>
+        
     </class>
 </hibernate-mapping>

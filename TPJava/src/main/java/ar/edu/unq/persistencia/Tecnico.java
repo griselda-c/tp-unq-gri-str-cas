@@ -42,9 +42,10 @@ public class Tecnico {
         this.apellido = apellido;
     }
 
-    private FormacionStrategy formacion = new FormacionStrategy();
+    private FormacionStrategy formacion;
 
     public Formacion armarFormacion(Equipo unEquipo) {
+        formacion = new FormacionStrategy();
         return this.formacion.armarFormacion(unEquipo);
     }
 
