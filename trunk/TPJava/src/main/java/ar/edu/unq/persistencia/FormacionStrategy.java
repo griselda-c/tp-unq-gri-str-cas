@@ -13,7 +13,7 @@ public class FormacionStrategy {
 
         List<Posicion> posicionesPendientes = new LinkedList<Posicion>();
 
-        Formacion formacion = new Formacion();
+        Formacion formacion = new Formacion(unEquipo);
         formacion.setSuplentes(suplentes);
 
         for (Posicion i : unEquipo.getPosiciones()) {

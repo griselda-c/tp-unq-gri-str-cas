@@ -45,10 +45,11 @@ public class Equipo {
 
     private List<Jugador> jugadores = new LinkedList<Jugador>();
 
-    private Formacion formacion = new Formacion();
+    private Formacion formacion;
 
     public Formacion armarFormacion() {
-        return this.tecnico.armarFormacion(this);
+        this.setFormacion(tecnico.armarFormacion(this));
+        return this.getFormacion();
     }
 
     public void addPosicion(Posicion unPosicion) {

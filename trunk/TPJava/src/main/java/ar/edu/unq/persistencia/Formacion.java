@@ -15,6 +15,16 @@ public class Formacion {
         this.id = id;
     }
 
+    public Equipo equipo;
+
+    public Equipo getEquipo() {
+        return equipo;
+    }
+
+    public void setEquipo(Equipo equipo) {
+        this.equipo = equipo;
+    }
+
     private List<Titular> titulares = new LinkedList<Titular>();
 
     private List<Jugador> suplentes = new LinkedList<Jugador>();
@@ -37,6 +47,10 @@ public class Formacion {
 
     public void setSuplentes(List<Jugador> suplentes) {
         this.suplentes = suplentes;
+    }
+
+    public Formacion(Equipo equipo) {
+        this.equipo = equipo;
     }
 
 }
