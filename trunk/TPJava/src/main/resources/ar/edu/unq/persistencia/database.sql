@@ -21,7 +21,7 @@ CREATE TABLE  `tpequipos`.`formacion_titulares` (
 CREATE TABLE  `tpequipos`.`formaciones` (
   `J_ID` int(11) NOT NULL AUTO_INCREMENT,
   PRIMARY KEY (`J_ID`)
-) ENGINE=MyISAM AUTO_INCREMENT=8 DEFAULT CHARSET=latin1
+) ENGINE=MyISAM DEFAULT CHARSET=latin1
 
 CREATE TABLE  `tpequipos`.`habilidad` (
   `H_ID` int(11) NOT NULL AUTO_INCREMENT,
