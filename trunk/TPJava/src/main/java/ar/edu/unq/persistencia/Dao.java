@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.hibernate.Criteria;
 import org.hibernate.Session;
-import org.hibernate.criterion.Expression;
 import org.hibernate.criterion.Restrictions;
 
 public class Dao {
@@ -19,7 +18,7 @@ public class Dao {
     public static Jugador getJugadorPorNombre(String nombre) {
         Session session = SessionManager.getSession();
         Criteria q = session.createCriteria(Jugador.class);
-        q.add(Expression.eq("nombre", nombre));
+        q.add(Restrictions.eq("nombre", nombre));
         List<Jugador> l = q.list();
         return l.get(0);
     }
@@ -62,7 +61,7 @@ public class Dao {
     public static Equipo getEquipoPorId(int nombre) {
         Session session = SessionManager.getSession();
         Criteria q = session.createCriteria(Equipo.class);
-        q.add(Expression.eq("id", nombre));
+        q.add(Restrictions.eq("id", nombre));
         List<Equipo> l = q.list();
         return l.get(0);
     }
