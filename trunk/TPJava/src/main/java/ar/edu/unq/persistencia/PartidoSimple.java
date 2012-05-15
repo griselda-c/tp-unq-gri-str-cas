@@ -14,6 +14,10 @@ public class PartidoSimple extends Partido {
         this.equipo2 = equipo2;
     }
 
+    public PartidoSimple() {
+        super();
+    }
+
     int golesEquipo1 = 0;
 
     int golesEquipo2 = 0;

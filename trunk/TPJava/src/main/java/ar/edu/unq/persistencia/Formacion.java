@@ -5,6 +5,10 @@ import java.util.List;
 
 public class Formacion {
 
+    public Formacion() {
+        super();
+    }
+
     private int id;
 
     public int getId() {

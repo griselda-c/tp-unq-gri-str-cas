@@ -6,6 +6,10 @@ public class PartidoDeCopa extends Partido {
 
     PartidoSimple partidoSimple2;
 
+    public PartidoDeCopa() {
+        super();
+    }
+
     public PartidoSimple getPartidoSimple1() {
         return partidoSimple1;
     }
@@ -52,16 +56,18 @@ public class PartidoDeCopa extends Partido {
         partidoSimple2 = e2;
     }
 
-    public int golesEquipo1() {
+    @Override
+    public int getGolesEquipo1() {
         return (partidoSimple1.getGolesEquipo1() + partidoSimple2.getGolesEquipo1());
     }
 
-    public int golesEquipo2() {
+    @Override
+    public int getGolesEquipo2() {
         return (partidoSimple1.getGolesEquipo2() + partidoSimple2.getGolesEquipo2());
     }
 
     public boolean empateComplejo() {
-        return ((partidoSimple1.getIntGanador() != partidoSimple2.getIntGanador()) & (golesEquipo1() == golesEquipo2()));
+        return ((partidoSimple1.getIntGanador() != partidoSimple2.getIntGanador()) & (getGolesEquipo1() == getGolesEquipo2()));
     }
 
     public boolean empateSimple() {
@@ -102,7 +108,7 @@ public class PartidoDeCopa extends Partido {
             return partidoSimple2.getGanador();
         } else if (partidoSimple2.getIntGanador() == 0) {
             return partidoSimple1.getGanador();
-        } else if (golesEquipo1() < golesEquipo2()) {
+        } else if (getGolesEquipo1() < getGolesEquipo2()) {
             return getEquipo2();
         }
         return getEquipo1();// contar goles
