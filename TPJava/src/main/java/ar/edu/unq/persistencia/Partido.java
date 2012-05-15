@@ -3,7 +3,7 @@ package ar.edu.unq.persistencia;
 /**
  * TODO: description
  */
-abstract class Partido {
+public abstract class Partido {
 
     private Integer id;
 
@@ -15,6 +15,14 @@ abstract class Partido {
         this.id = id;
     }
 
-    abstract Equipo getGanador();
+    public abstract Equipo getGanador();
+
+    public abstract int getGolesEquipo1();
+
+    public abstract int getGolesEquipo2();
+
+    public abstract Equipo getEquipo1();
+
+    public abstract Equipo getEquipo2();
 
 }
