@@ -1,7 +1,11 @@
-package ar.edu.unq.persistencia;
+package ar.edu.unq.reportes;
 
 import java.util.LinkedList;
 import java.util.List;
+
+import ar.edu.unq.persistencia.Dao;
+import ar.edu.unq.persistencia.Equipo;
+import ar.edu.unq.persistencia.Partido;
 
 /**
  * TODO: description
@@ -20,6 +24,7 @@ public class ObtenerHistorialDe extends GeneradorHistoriales {
 
     @Override
     public String call() throws Exception {
+        long inicio = System.currentTimeMillis();
         Equipo equipoA = Dao.getEquipoPorId(equipo1);
         Equipo equipoB = Dao.getEquipoPorId(equipo2);
 
@@ -55,6 +60,7 @@ public class ObtenerHistorialDe extends GeneradorHistoriales {
         for (Partido prtd : empatados) {
             res += "   " + prtd.getGolesEquipo1() + "    -    " + prtd.getGolesEquipo2() + "       " + "Empate" + "\n";
         }
+        System.out.println("Obtener historial de = " + (System.currentTimeMillis() - inicio) + " milisegundos");
 
         return res;
     }

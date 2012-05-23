@@ -3,6 +3,7 @@ package ar.edu.unq.persistencia;
 import java.util.List;
 
 import org.hibernate.Criteria;
+import org.hibernate.FetchMode;
 import org.hibernate.Session;
 import org.hibernate.criterion.Restrictions;
 
@@ -30,6 +31,15 @@ public class Dao {
         return l;
     }
 
+    public static List<Partido> getPartidosSimplesEmpty() {
+        Session session = SessionManager.getSession();
+        Criteria q = session.createCriteria(PartidoSimple.class);
+        q.setFetchMode("equipo1", FetchMode.SELECT);
+        q.setFetchMode("equipo2", FetchMode.SELECT);
+        List<Partido> l = q.list();
+        return l;
+    }
+
     public static List<Partido> getPartidosCopaDeEquipos() {
         Session session = SessionManager.getSession();
         Criteria q = session.createCriteria(PartidoDeCopa.class);
@@ -40,6 +50,7 @@ public class Dao {
     public static List<Equipo> getEquipos() {
         Session session = SessionManager.getSession();
         Criteria q = session.createCriteria(Equipo.class);
+        q.setFetchMode("formacion", FetchMode.SELECT);
         List<Equipo> l = q.list();
         return l;
     }
@@ -55,6 +66,14 @@ public class Dao {
                 .add(Restrictions.conjunction().add(Restrictions.eq("equipo1", eq2))
                         .add(Restrictions.eq("equipo2", eq1))));
 
+        Criteria criteriaEquipo1 = q.createCriteria("equipo1");
+        criteriaEquipo1.setFetchMode("tecnico", FetchMode.SELECT);
+        criteriaEquipo1.setFetchMode("formacion", FetchMode.SELECT);
+
+        Criteria criteriaEquipo2 = q.createCriteria("equipo2");
+        criteriaEquipo2.setFetchMode("tecnico", FetchMode.SELECT);
+        criteriaEquipo2.setFetchMode("formacion", FetchMode.SELECT);
+
         return q.list();
     }
 
@@ -62,6 +81,7 @@ public class Dao {
         Session session = SessionManager.getSession();
         Criteria q = session.createCriteria(Equipo.class);
         q.add(Restrictions.eq("id", nombre));
+
         List<Equipo> l = q.list();
         return l.get(0);
     }

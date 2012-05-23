@@ -1,0 +1,19 @@
+EmpateXPares.java
+  DAO.getPartidosSimplesEmpty() se modifico el fetch-mode de los equipos para agilizar la consulta
+  DAO.getEquipos() se excluyó la formacion de la consulta lo que exigió modificar el mapeo de la clase Equipo para evitar que consulte las formaciones (constrained="true")
+  3097 a 1716
+
+ObtenerHistorialDe(113, 114)
+  Dao.getPartidosSimplesDeEquipos(equipoA, equipoB) se modifico el fetch-mode de los equipos para agilizar la consulta 
+  													filtrando las formaciones y los técnicos.
+  
+  1859 a 285
+
+
+EquipoConMenorVicTotal.java
+
+no hubo cambios 1276 milisegundos;
+
+EquiposxMayorVicTotal no hubo cambios 1892 milisegundos
+
+EquipoxMayorVictoriaDeCopa no hubo cambios 1719 milisegundos
