@@ -1,10 +1,14 @@
-package ar.edu.unq.persistencia;
+package ar.edu.unq.reportes;
 
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.Callable;
+
+import ar.edu.unq.persistencia.Dao;
+import ar.edu.unq.persistencia.Equipo;
+import ar.edu.unq.persistencia.Partido;
 
 public abstract class GeneradorHistoriales implements Callable<String> {
     public String equiposXMayorVictoria(List<Partido> partidos, boolean menorAMayor) {
@@ -103,7 +107,7 @@ public abstract class GeneradorHistoriales implements Callable<String> {
     }
 
     public List<Partido> empates() {
-        List<Partido> simple = Dao.getPartidosSimples();
+        List<Partido> simple = Dao.getPartidosSimplesEmpty();
         List<Partido> empates = new LinkedList<Partido>();
         for (Partido simp : simple) {
             if (simp.getGanador() == null) {
