@@ -59,6 +59,7 @@ public class Dao {
 
         Session session = SessionManager.getSession();
         Criteria q = session.createCriteria(Partido.class);
+        q.setCacheable(true);
         q.add(Restrictions
                 .disjunction()
                 .add(Restrictions.conjunction().add(Restrictions.eq("equipo1", eq1))
