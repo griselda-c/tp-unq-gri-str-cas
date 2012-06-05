@@ -12,7 +12,6 @@ import ar.edu.unq.persistencia.Partido;
 
 public abstract class GeneradorHistoriales implements Callable<String> {
     public String equiposXMayorVictoria(List<Partido> partidos, boolean menorAMayor) {
-        Dao.getPartidosSimples();
         List<Equipo> equipos = Dao.getEquipos();
 
         Map<Equipo, Integer> equiposVictorias = new HashMap<Equipo, Integer>();

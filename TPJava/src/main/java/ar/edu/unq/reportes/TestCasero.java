@@ -9,9 +9,9 @@ import ar.edu.unq.persistencia.SessionManager;
 public class TestCasero {
 
     public static void main(String[] args) {
-        String pantalla = SessionManager.runInSession(new ObtenerHistorialDe(113, 114));
+        String pantalla = SessionManager.runInSession(new EquiposXMenorVictoriaTotal());
         System.out.println(pantalla);
-        pantalla = SessionManager.runInSession(new ObtenerHistorialDe(113, 114));
+        pantalla = SessionManager.runInSession(new EquiposXMenorVictoriaTotal());
         System.out.println(pantalla);
         Assert.assertEquals(1, 1);
     }
