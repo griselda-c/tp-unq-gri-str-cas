@@ -4,6 +4,7 @@
  
 <hibernate-mapping>
     <class name="ar.edu.unq.persistencia.Jugador" table="jugadores" >
+        <cache usage="read-only" region="disco"/>
         <id name="id" type="java.lang.Integer">
             <column name="J_ID" />
             <generator class="identity" />

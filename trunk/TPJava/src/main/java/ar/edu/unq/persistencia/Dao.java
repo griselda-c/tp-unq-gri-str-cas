@@ -27,6 +27,7 @@ public class Dao {
     public static List<Partido> getPartidosSimples() {
         Session session = SessionManager.getSession();
         Criteria q = session.createCriteria(PartidoSimple.class);
+        q.setCacheable(true);
         List<Partido> l = q.list();
         return l;
     }
@@ -43,6 +44,7 @@ public class Dao {
     public static List<Partido> getPartidosCopaDeEquipos() {
         Session session = SessionManager.getSession();
         Criteria q = session.createCriteria(PartidoDeCopa.class);
+        q.setCacheable(true);
         List<Partido> l = q.list();
         return l;
     }
@@ -51,14 +53,15 @@ public class Dao {
         Session session = SessionManager.getSession();
         Criteria q = session.createCriteria(Equipo.class);
         q.setFetchMode("formacion", FetchMode.SELECT);
+        q.setCacheable(true);
         List<Equipo> l = q.list();
         return l;
     }
 
-    public static List<Partido> getPartidosSimplesDeEquipos(Equipo eq1, Equipo eq2) {
+    public static List<PartidoSimple> getPartidosSimplesDeEquipos(Equipo eq1, Equipo eq2) {
 
         Session session = SessionManager.getSession();
-        Criteria q = session.createCriteria(Partido.class);
+        Criteria q = session.createCriteria(PartidoSimple.class);
         q.setCacheable(true);
         q.add(Restrictions
                 .disjunction()
@@ -80,11 +83,12 @@ public class Dao {
 
     public static Equipo getEquipoPorId(int nombre) {
         Session session = SessionManager.getSession();
-        Criteria q = session.createCriteria(Equipo.class);
-        q.add(Restrictions.eq("id", nombre));
-
-        List<Equipo> l = q.list();
-        return l.get(0);
+        /*
+         * Criteria q = session.createCriteria(Equipo.class); q.add(Restrictions.eq("id", nombre));
+         * 
+         * List<Equipo> l = q.list(); return l.get(0);
+         */
+        return (Equipo) session.get(Equipo.class, nombre);
     }
 
     public static List<Formacion> getFormaciones() {

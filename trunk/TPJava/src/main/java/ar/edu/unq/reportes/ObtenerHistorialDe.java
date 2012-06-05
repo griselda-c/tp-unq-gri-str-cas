@@ -6,6 +6,7 @@ import java.util.List;
 import ar.edu.unq.persistencia.Dao;
 import ar.edu.unq.persistencia.Equipo;
 import ar.edu.unq.persistencia.Partido;
+import ar.edu.unq.persistencia.PartidoSimple;
 
 /**
  * TODO: description
@@ -28,7 +29,7 @@ public class ObtenerHistorialDe extends GeneradorHistoriales {
         Equipo equipoA = Dao.getEquipoPorId(equipo1);
         Equipo equipoB = Dao.getEquipoPorId(equipo2);
 
-        List<Partido> partidos = Dao.getPartidosSimplesDeEquipos(equipoA, equipoB);
+        List<PartidoSimple> partidos = Dao.getPartidosSimplesDeEquipos(equipoA, equipoB);
         List<Partido> pGanadosXEquipoA = new LinkedList<Partido>();
         List<Partido> pGanadosXEquipoB = new LinkedList<Partido>();
         List<Partido> empatados = new LinkedList<Partido>();
