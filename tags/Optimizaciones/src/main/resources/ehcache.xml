@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+ 
+	<diskStore path="java.io.tmpdir"/>
+	<defaultCache
+		eternal="false"
+		timeToIdleSeconds="120"
+		timeToLiveSeconds="120"
+		overflowToDisk="true"
+	/>		
+	<cache
+		diskPersistent="true"
+		overflowToDisk="true"
+		eternal="true"
+		name="disco"
+	/>
+</ehcache>

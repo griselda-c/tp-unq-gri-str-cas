@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+    <class name="ar.edu.unq.persistencia.Jugador" table="jugadores" >
+        <cache usage="read-only" region="disco"/>
+        <id name="id" type="java.lang.Integer">
+            <column name="J_ID" />
+            <generator class="identity" />
+        </id>
+        <property name="nombre" type="string">
+            <column name="J_NOMBRE" length="20" not-null="true" unique="false" />
+        </property>
+        <property name="apellido" type="string">
+            <column name="J_APELLIDO" length="20" not-null="true" unique="false" />
+        </property>
+        <property name="nroCamiseta" type="int">
+            <column name="J_NRO" not-null="false" unique="false"/>
+        </property>
+        <list name="habilidades" cascade="all">
+        	<key column = "J_JD_ID"></key>
+        	<index column ="J_INDICE"/>		
+        	<one-to-many class = "ar.edu.unq.persistencia.Habilidad"/>
+        </list>
+    </class>
+</hibernate-mapping>

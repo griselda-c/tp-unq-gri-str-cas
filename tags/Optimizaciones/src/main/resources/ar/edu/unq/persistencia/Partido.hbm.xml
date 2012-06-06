@@ -1,0 +1,37 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+ 
+<hibernate-mapping>
+	<class name="ar.edu.unq.persistencia.Partido" abstract="true">   	
+        <cache usage="read-only" region="disco"/>
+        <id name="id" type="java.lang.Integer">
+            <column name="J_ID" />            
+            <generator class="increment" />
+        </id>
+        <union-subclass name="ar.edu.unq.persistencia.PartidoSimple" table="partidossimples" >
+           	<property name="golesEquipo1" type="int">
+            	<column name="J_GOLES_EQUIPO_1" length="3"/>
+        	</property>
+        	<property name="golesEquipo2" type="int">
+            	<column name="J_GOLES_EQUIPO_2" length="3"/>
+        	</property>        	
+        	<many-to-one name="equipo1"  
+        	column="J_EQUIPO1" cascade="all"/>
+        	<many-to-one name="equipo2"  
+        	column="J_EQUIPO2" cascade="all"/>
+		</union-subclass>
+    	<union-subclass name="ar.edu.unq.persistencia.PartidoDeCopa" table="partidoscopa" >
+           	<property name="golesPenalesEquipo1" type="int">
+            	<column name="J_GOLES_PENALES_1" length="3"/>
+        	</property>
+        	<property name="golesPenalesEquipo2" type="int">
+            	<column name="J_GOLES_PENALES_2" length="3"/>
+        	</property>
+        	<many-to-one name="partidoSimple1"  
+        	column="J_PARTIDO1" cascade="all"/>
+        	<many-to-one name="partidoSimple2"  
+        	column="J_PARTIDO2" cascade="all"/>
+    	</union-subclass>   
+    </class>
+</hibernate-mapping>

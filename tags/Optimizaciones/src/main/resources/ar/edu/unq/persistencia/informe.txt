@@ -1,0 +1,30 @@
+EmpateXPares.java
+	DAO.getPartidosSimplesEmpty() se modifico el fetch-mode de los equipos para agilizar la consulta
+	DAO.getEquipos() se excluyó la formacion de la consulta lo que exigió modificar el mapeo de la clase Equipo para evitar que consulte las formaciones (constrained="true")
+	3097 a 1716
+	Se agregan índices en ParidosSimples en las columnas Equipo1 y Equipo2 (1643 milisegundos)
+
+ObtenerHistorialDe(113, 114)
+	Dao.getPartidosSimplesDeEquipos(equipoA, equipoB) se modificó el fetch-mode de los equipos para agilizar la consulta filtrando las formaciones y los técnicos.
+	1859 a 285
+	Se agregan índices en la base (365 milisegundos)
+	Se implemento cacheo en la clase Equipo y se optimizo el pedido de PartidoSimple, debido a que consultaba por la unión de todos los PartidoSimple y PartidoDeCopa, se optimizo la consulta del equipo por id, remplazando el list de un Criteria por un get al session. 
+	Cacheando en disco primer consulta 400 ms, siguientes 150 ms aprox
+
+EquipoConMenorVicTotal.java
+	no hubo cambios 1276 milisegundos;
+	Se agregan índices en la base (1262 milisegundos)
+	Se establecieron como cacheables las querys ejecutadas durante el call()
+	Cacheando en disco primer consulta 1700 ms, siguientes 700 ms aprox
+
+EquiposxMayorVicTotal 1892 milisegundos
+	Se agregan índices en la base (1809 milisegundos)
+	Debido a los cambios realizados anteriormente, solo se consulta a la base, la totalidad de los PartidoSimple, la totalidad de los PartidoDeCopa, y todos los Equipo, cada clase en una sola query
+	Cacheando en disco primer consulta 2650 ms, siguientes 1350 ms aprox
+
+EquipoxMayorVictoriaDeCopa 1719 milisegundos
+	Se agregan índices en la base (1709 milisegundos)	
+	Se utilizo estrategia de cacheo (ehCache) en los objetos Partido y subclases, a través del mapping general y el de la clase Partido.
+	Se observó al ejecutar los metodos en los que interviene la clase Partido, un tiempo de ejecución mayor en una consulta, y uno menor en consultas consecutivas.
+
+En todos los casos se controlo cada query en el sql browser para comprobar el uso de indices y el tipo de consulta, evitando uniones innecesarias y otro tipo de ejecuciones no perfomantes.
