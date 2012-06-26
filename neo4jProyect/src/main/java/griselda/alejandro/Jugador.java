@@ -20,17 +20,43 @@ public class Jugador implements Persistible {
 
     public Jugador() {
         super();
+        this.nombre = null;
+        this.id = null;
     }
 
     @Override
-    public void persistirEn(AbstractGraphDatabase instancia) {
+    public Node persistirEn(AbstractGraphDatabase instancia) {
+        Node nodeSelf;
         if (this.id == null) {
-            Node nuevoJugador = instancia.createNode();
-            nuevoJugador
-            instancia.getReferenceNode().createRelationshipTo(nuevoJugador, Relacion.JUGADOR);
+            this.id = BaseDeDatos.getNewIdEntidad(instancia, BaseDeDatos.JUGADORES);
+            nodeSelf = instancia.createNode();
+            nodeSelf.setProperty("nombre", this.nombre);
+            nodeSelf.setProperty("id", this.id);
+            Node nodeJugadores = BaseDeDatos.getNodoEntidad(instancia, BaseDeDatos.JUGADORES);
+            nodeJugadores.createRelationshipTo(nodeSelf, Relacion.ENTIDAD);
         } else {
+            nodeSelf = BaseDeDatos.getInstanciaFromEntidad(instancia, BaseDeDatos.JUGADORES, this.id);
+            nodeSelf.setProperty("nombre", this.nombre);
 
         }
-        System.out.println("Se guardó el Jugador con nombre " + this.nombre);
+        return nodeSelf;
     }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    @Override
+    public Integer getId() {
+        return id;
+    }
+
+    public void setId(Integer id) {
+        this.id = id;
+    }
+
 }

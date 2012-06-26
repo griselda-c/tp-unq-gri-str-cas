@@ -1,11 +1,12 @@
 package griselda.alejandro;
 
+import org.neo4j.graphdb.Node;
 import org.neo4j.kernel.AbstractGraphDatabase;
 
-/**
- * TODO: description
- */
 public interface Persistible {
 
-    public void persistirEn(AbstractGraphDatabase instancia);
+    public Node persistirEn(AbstractGraphDatabase instancia);
+
+    public Integer getId();
+
 }
