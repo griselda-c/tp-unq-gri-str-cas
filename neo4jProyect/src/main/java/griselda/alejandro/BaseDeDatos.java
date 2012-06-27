@@ -19,6 +19,10 @@ public class BaseDeDatos {
 
     static String EQUIPOS = "equipos";
 
+    static String PARTIDOSSIMPLES = "partidosSimples";
+
+    static String PARTIDOSCOPA = "partidosCopa";
+
     public static void abrirBase() {
         instancia = new EmbeddedGraphDatabase("base6");
 
@@ -37,6 +41,17 @@ public class BaseDeDatos {
                 jugadoresNode.setProperty("entidad", JUGADORES);
                 jugadoresNode.setProperty("contadorId", 0);
                 instancia.getReferenceNode().createRelationshipTo(jugadoresNode, Relacion.CLASE);
+
+                Node partidosSNode = instancia.createNode();
+                partidosSNode.setProperty("entidad", PARTIDOSSIMPLES);
+                partidosSNode.setProperty("contadorId", 0);
+                instancia.getReferenceNode().createRelationshipTo(partidosSNode, Relacion.CLASE);
+
+                Node partidosCNode = instancia.createNode();
+                partidosCNode.setProperty("entidad", PARTIDOSCOPA);
+                partidosCNode.setProperty("contadorId", 0);
+                instancia.getReferenceNode().createRelationshipTo(partidosCNode, Relacion.CLASE);
+
                 tx.success();
             } else {
                 // System.out.println("Existe una base en el directorio");
@@ -47,7 +62,7 @@ public class BaseDeDatos {
     }
 
     public static enum Relacion implements RelationshipType {
-        CLASE, ENTIDAD, EQUIPOJUGADOR
+        CLASE, ENTIDAD, EQUIPOJUGADOR, PARTIDOEQUIPO2, PARTIDOEQUIPO1
     }
 
     public static AbstractGraphDatabase instancia;
@@ -254,5 +269,69 @@ public class BaseDeDatos {
                 }
             }
         }
+    }
+
+    public static List<PartidoSimple> getPartidosSimples() {
+        List<PartidoSimple> partidosSimples = new LinkedList<PartidoSimple>();
+        abrirBase();
+        Transaction tx = instancia.beginTx();
+        try {
+            Node nodoEntidad = getNodoEntidad(instancia, PARTIDOSSIMPLES);
+            Iterable<Relationship> relaciones = nodoEntidad.getRelationships(Relacion.ENTIDAD);
+            for (Iterator<Relationship> iterator = relaciones.iterator(); iterator.hasNext();) {
+                Relationship relacion = iterator.next();
+                Node[] nodos = relacion.getNodes();
+                for (int i = 0; i < nodos.length; i++) {
+                    if (!nodos[i].equals(nodoEntidad)) {
+                        PartidoSimple partidoTemp;
+                        Integer idNodo = (Integer) nodos[i].getProperty("id");
+                        if (existe(Equipo.class, idNodo)) {
+                            partidoTemp = detectar(PartidoSimple.class, idNodo);
+                        } else {
+                            partidoTemp = new PartidoSimple();
+                            partidoTemp.setId(idNodo);
+                            guardar(partidoTemp);
+                        }
+                        partidosSimples.add(partidoTemp);
+
+                        partidoTemp.equipo1 = obtenerEquipo(partidoTemp, nodos[i], Relacion.PARTIDOEQUIPO1);
+                        partidoTemp.equipo2 = obtenerEquipo(partidoTemp, nodos[i], Relacion.PARTIDOEQUIPO2);
+                    }
+                }
+            }
+            tx.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            tx.finish();
+        }
+        cerrarBase();
+        return partidosSimples;
+    }
+
+    public static Equipo obtenerEquipo(PartidoSimple partidoTemp, Node partidoNode, Relacion partidoequipo) {
+        Iterable<Relationship> relaciones = partidoNode.getRelationships(partidoequipo);
+        for (Iterator<Relationship> iterator = relaciones.iterator(); iterator.hasNext();) {
+            Relationship relacion = iterator.next();
+            Node[] nodos = relacion.getNodes();
+            for (int i = 0; i < nodos.length; i++) {
+                if (!nodos[i].equals(partidoNode)) {
+
+                    Integer idNodo = (Integer) nodos[i].getProperty("id");
+                    if (existe(Equipo.class, idNodo)) {
+                        return detectar(Equipo.class, idNodo);
+                    } else {
+                        Equipo equipoTemp;
+                        equipoTemp = new Equipo();
+                        equipoTemp.setNombre((String) nodos[i].getProperty("nombre"));
+                        equipoTemp.setId(idNodo);
+                        guardar(equipoTemp);
+                        agregarJugadores(equipoTemp, nodos[i]);
+                        return equipoTemp;
+                    }
+                }
+            }
+        }
+        return null;
     }
 }
