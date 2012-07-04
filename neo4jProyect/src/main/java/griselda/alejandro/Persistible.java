@@ -9,4 +9,5 @@ public interface Persistible {
 
     public Integer getId();
 
+    public Persistible completeObjectWithNode(Node nodo);
 }

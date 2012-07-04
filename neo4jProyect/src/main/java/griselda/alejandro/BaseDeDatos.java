@@ -2,7 +2,6 @@ package griselda.alejandro;
 
 import java.util.HashMap;
 import java.util.Iterator;
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -15,16 +14,26 @@ import org.neo4j.kernel.EmbeddedGraphDatabase;
 
 public class BaseDeDatos {
 
-    static String JUGADORES = "jugadores";
+    public static final String EQUIPOS = "equipos";
 
-    static String EQUIPOS = "equipos";
+    public static final String FORMACIONES = "formacion";
 
-    static String PARTIDOSSIMPLES = "partidosSimples";
+    public static final String HABILIDADES = "habilidades";
 
-    static String PARTIDOSCOPA = "partidosCopa";
+    public static final String JUGADORES = "jugadores";
+
+    public static final String PARTIDOSCOPA = "partidosCopa";
+
+    public static final String PARTIDOSSIMPLES = "partidosSimples";
+
+    public static final String TECNICOS = "tecnicos";
+
+    public static final String TITULARES = "titulares";
+
+    public static Map<String, Persistible> identityMap = new HashMap<String, Persistible>();
 
     public static void abrirBase() {
-        instancia = new EmbeddedGraphDatabase("base6");
+        instancia = new EmbeddedGraphDatabase("base09");
 
         Transaction tx = instancia.beginTx();
         try {
@@ -32,26 +41,17 @@ public class BaseDeDatos {
                 System.out.println("se creo la base");
                 instancia.getReferenceNode().setProperty("iniciado", "iniciado");
 
-                Node equiposNode = instancia.createNode();
-                equiposNode.setProperty("entidad", EQUIPOS);
-                equiposNode.setProperty("contadorId", 0);
-                instancia.getReferenceNode().createRelationshipTo(equiposNode, Relacion.CLASE);
+                String entidades[] = { EQUIPOS, FORMACIONES, HABILIDADES, JUGADORES, PARTIDOSCOPA, PARTIDOSSIMPLES,
+                        TECNICOS, TITULARES };
 
-                Node jugadoresNode = instancia.createNode();
-                jugadoresNode.setProperty("entidad", JUGADORES);
-                jugadoresNode.setProperty("contadorId", 0);
-                instancia.getReferenceNode().createRelationshipTo(jugadoresNode, Relacion.CLASE);
-
-                Node partidosSNode = instancia.createNode();
-                partidosSNode.setProperty("entidad", PARTIDOSSIMPLES);
-                partidosSNode.setProperty("contadorId", 0);
-                instancia.getReferenceNode().createRelationshipTo(partidosSNode, Relacion.CLASE);
-
-                Node partidosCNode = instancia.createNode();
-                partidosCNode.setProperty("entidad", PARTIDOSCOPA);
-                partidosCNode.setProperty("contadorId", 0);
-                instancia.getReferenceNode().createRelationshipTo(partidosCNode, Relacion.CLASE);
-
+                for (int i = 0; i < entidades.length; i++) {
+                    String entidad = entidades[i];
+                    Node equiposNode = instancia.createNode();
+                    equiposNode.setProperty("entidad", entidad);
+                    equiposNode.setProperty("contadorId", 0);
+                    instancia.getReferenceNode().createRelationshipTo(equiposNode, Relacion.CLASE);
+                    System.out.println("Se crea la clase " + entidad);
+                }
                 tx.success();
             } else {
                 // System.out.println("Existe una base en el directorio");
@@ -62,7 +62,7 @@ public class BaseDeDatos {
     }
 
     public static enum Relacion implements RelationshipType {
-        CLASE, ENTIDAD, EQUIPOJUGADOR, PARTIDOEQUIPO2, PARTIDOEQUIPO1
+        CLASE, ENTIDAD, EQUIPOJUGADOR, PARTIDOEQUIPO2, PARTIDOEQUIPO1, EQUIPOTECNICO, EQUIPOFORMACION, FORMACIONEQUIPO, FORMACIONTITULAR, FORMACIONSUPLENTE, TITULARJUGADOR, TITULARPOSICION, JUGADORHABILIDAD, PARTIDOSIMPLE1, PARTIDOSIMPLE2
     }
 
     public static AbstractGraphDatabase instancia;
@@ -76,6 +76,24 @@ public class BaseDeDatos {
         Transaction tx = instancia.beginTx();
         try {
             object.persistirEn(instancia);
+            System.out.println("se persiste " + object);
+            tx.success();
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            tx.finish();
+        }
+        cerrarBase();
+    }
+
+    public static void persistirColeccion(List<?> persistibles) {
+        abrirBase();
+        Transaction tx = instancia.beginTx();
+        try {
+            for (Object persistible : persistibles) {
+                ((Persistible) persistible).persistirEn(instancia);
+                System.out.println("se persiste " + persistible);
+            }
             tx.success();
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,8 +169,6 @@ public class BaseDeDatos {
         return false;
     }
 
-    private static Map<String, Persistible> identityMap = new HashMap<String, Persistible>();
-
     public static void guardar(Persistible objeto) {
         identityMap.put(buildKey(objeto), objeto);
     }
@@ -174,164 +190,10 @@ public class BaseDeDatos {
         return identityMap.containsKey(buildKey(cl, idNodo));
     }
 
-    public static List<Jugador> getJugadores() {
-        List<Jugador> jugadores = new LinkedList<Jugador>();
-        abrirBase();
-        Transaction tx = instancia.beginTx();
-        try {
-            Node nodoEntidad = getNodoEntidad(instancia, JUGADORES);
-            Iterable<Relationship> relaciones = nodoEntidad.getRelationships(Relacion.ENTIDAD);
-            for (Iterator<Relationship> iterator = relaciones.iterator(); iterator.hasNext();) {
-                Relationship relacion = iterator.next();
-                Node[] nodos = relacion.getNodes();
-                for (int i = 0; i < nodos.length; i++) {
-                    if (!nodos[i].equals(nodoEntidad)) {
-                        Jugador jugadorTemp;
-                        Integer idNodo = (Integer) nodos[i].getProperty("id");
-                        if (existe(Jugador.class, idNodo)) {
-                            jugadorTemp = detectar(Jugador.class, idNodo);
-                        } else {
-                            jugadorTemp = new Jugador();
-                            jugadorTemp.setNombre((String) nodos[i].getProperty("nombre"));
-                            jugadorTemp.setId(idNodo);
-                            guardar(jugadorTemp);
-                        }
-                        jugadores.add(jugadorTemp);
-                    }
-                }
-            }
-            tx.success();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            tx.finish();
-        }
-        cerrarBase();
-        return jugadores;
-    }
-
-    public static List<Equipo> getEquipos() {
-        List<Equipo> equipos = new LinkedList<Equipo>();
-        abrirBase();
-        Transaction tx = instancia.beginTx();
-        try {
-            Node nodoEntidad = getNodoEntidad(instancia, EQUIPOS);
-            Iterable<Relationship> relaciones = nodoEntidad.getRelationships(Relacion.ENTIDAD);
-            for (Iterator<Relationship> iterator = relaciones.iterator(); iterator.hasNext();) {
-                Relationship relacion = iterator.next();
-                Node[] nodos = relacion.getNodes();
-                for (int i = 0; i < nodos.length; i++) {
-                    if (!nodos[i].equals(nodoEntidad)) {
-                        Equipo equipoTemp;
-                        Integer idNodo = (Integer) nodos[i].getProperty("id");
-                        if (existe(Equipo.class, idNodo)) {
-                            equipoTemp = detectar(Equipo.class, idNodo);
-                        } else {
-                            equipoTemp = new Equipo();
-                            equipoTemp.setNombre((String) nodos[i].getProperty("nombre"));
-                            equipoTemp.setId(idNodo);
-                            guardar(equipoTemp);
-                        }
-                        equipos.add(equipoTemp);
-                        agregarJugadores(equipoTemp, nodos[i]);
-                    }
-                }
-            }
-            tx.success();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            tx.finish();
-        }
-        cerrarBase();
-        return equipos;
-    }
-
-    public static void agregarJugadores(Equipo equipoTemp, Node equipoNode) {
-        Iterable<Relationship> relaciones = equipoNode.getRelationships(Relacion.EQUIPOJUGADOR);
-        for (Iterator<Relationship> iterator = relaciones.iterator(); iterator.hasNext();) {
-            Relationship relacion = iterator.next();
-            Node[] nodos = relacion.getNodes();
-            for (int i = 0; i < nodos.length; i++) {
-                if (!nodos[i].equals(equipoNode)) {
-
-                    Integer idNodo = (Integer) nodos[i].getProperty("id");
-                    if (existe(Equipo.class, idNodo)) {
-                        equipoTemp.getJugadores().add(detectar(Jugador.class, idNodo));
-                    } else {
-                        Jugador jugadorTemp;
-                        jugadorTemp = new Jugador();
-                        jugadorTemp.setNombre((String) nodos[i].getProperty("nombre"));
-                        jugadorTemp.setId(idNodo);
-                        guardar(jugadorTemp);
-                        equipoTemp.getJugadores().add(jugadorTemp);
-                    }
-                }
-            }
+    public static void crearRelacionEntre(Node nodeSelf, Node newNode, Relacion relacion) {
+        if (!existeRelacion(nodeSelf, newNode, relacion)) {
+            nodeSelf.createRelationshipTo(newNode, relacion);
         }
     }
 
-    public static List<PartidoSimple> getPartidosSimples() {
-        List<PartidoSimple> partidosSimples = new LinkedList<PartidoSimple>();
-        abrirBase();
-        Transaction tx = instancia.beginTx();
-        try {
-            Node nodoEntidad = getNodoEntidad(instancia, PARTIDOSSIMPLES);
-            Iterable<Relationship> relaciones = nodoEntidad.getRelationships(Relacion.ENTIDAD);
-            for (Iterator<Relationship> iterator = relaciones.iterator(); iterator.hasNext();) {
-                Relationship relacion = iterator.next();
-                Node[] nodos = relacion.getNodes();
-                for (int i = 0; i < nodos.length; i++) {
-                    if (!nodos[i].equals(nodoEntidad)) {
-                        PartidoSimple partidoTemp;
-                        Integer idNodo = (Integer) nodos[i].getProperty("id");
-                        if (existe(Equipo.class, idNodo)) {
-                            partidoTemp = detectar(PartidoSimple.class, idNodo);
-                        } else {
-                            partidoTemp = new PartidoSimple();
-                            partidoTemp.setId(idNodo);
-                            guardar(partidoTemp);
-                        }
-                        partidosSimples.add(partidoTemp);
-
-                        partidoTemp.equipo1 = obtenerEquipo(partidoTemp, nodos[i], Relacion.PARTIDOEQUIPO1);
-                        partidoTemp.equipo2 = obtenerEquipo(partidoTemp, nodos[i], Relacion.PARTIDOEQUIPO2);
-                    }
-                }
-            }
-            tx.success();
-        } catch (Exception e) {
-            e.printStackTrace();
-        } finally {
-            tx.finish();
-        }
-        cerrarBase();
-        return partidosSimples;
-    }
-
-    public static Equipo obtenerEquipo(PartidoSimple partidoTemp, Node partidoNode, Relacion partidoequipo) {
-        Iterable<Relationship> relaciones = partidoNode.getRelationships(partidoequipo);
-        for (Iterator<Relationship> iterator = relaciones.iterator(); iterator.hasNext();) {
-            Relationship relacion = iterator.next();
-            Node[] nodos = relacion.getNodes();
-            for (int i = 0; i < nodos.length; i++) {
-                if (!nodos[i].equals(partidoNode)) {
-
-                    Integer idNodo = (Integer) nodos[i].getProperty("id");
-                    if (existe(Equipo.class, idNodo)) {
-                        return detectar(Equipo.class, idNodo);
-                    } else {
-                        Equipo equipoTemp;
-                        equipoTemp = new Equipo();
-                        equipoTemp.setNombre((String) nodos[i].getProperty("nombre"));
-                        equipoTemp.setId(idNodo);
-                        guardar(equipoTemp);
-                        agregarJugadores(equipoTemp, nodos[i]);
-                        return equipoTemp;
-                    }
-                }
-            }
-        }
-        return null;
-    }
 }
